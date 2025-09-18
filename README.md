@@ -55,6 +55,8 @@ EEPROM 芯片描述（示例 JSON）
 - 运行 PySide6 开发界面（示例）
   1. 安装依赖：pip install -r requirements-dev.txt（包含 PySide6）
   2. 启动：python -m ui_pyside6.main
+  3. 或运行演示：python run_demo.py（命令行演示）
+- 测试功能：python test_gui.py（验证所有组件）
 - 运行 Tauri 开发界面（示例）
   1. 安装前端依赖（在 ui-tauri 目录）并启动 Tauri dev（按 Tauri 官方流程）
   2. 后端（Python）以守护进程或插件方式暴露适配器 API

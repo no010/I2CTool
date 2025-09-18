@@ -1,0 +1,9 @@
+{
+  "id": "24c08",
+  "name": "24C08 (8Kbit)",
+  "size_bytes": 1024,
+  "address_width": 1,
+  "page_size": 16,
+  "write_cycle_ms": 5,
+  "notes": "Standard 8Kbit I2C EEPROM"
+}

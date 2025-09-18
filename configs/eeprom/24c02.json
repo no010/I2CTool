@@ -1,0 +1,9 @@
+{
+  "id": "24c02",
+  "name": "24C02 (2Kbit)",
+  "size_bytes": 256,
+  "address_width": 1,
+  "page_size": 8,
+  "write_cycle_ms": 5,
+  "notes": "Standard 2Kbit I2C EEPROM"
+}
