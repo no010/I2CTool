@@ -1,3 +1,6 @@
+# I2CTool specific
+i2ctool_gui_screenshot.png
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
