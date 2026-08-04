@@ -11,11 +11,12 @@ project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
 
 def test_core_functionality():
-    """Test core functionality without GUI."""
+    """Test core functionality without GUI. Returns True only if all checks pass."""
     from i2ctool_core.eeprom_config import EEPROMManager
     from adapters.simulation_adapter import SimulationAdapter
     from i2ctool_core.eeprom_operations import EEPROMOperations
     
+    failed = False
     print("=== Testing I2CTool Core Functionality ===")
     
     # Test EEPROM configuration manager
@@ -64,13 +65,21 @@ def test_core_functionality():
             print(f"   Write/read verification: FAILED")
             print(f"   Expected: {test_data}")
             print(f"   Got:      {read_back}")
+            adapter.close()
+            raise AssertionError(
+                f"Write/read verification failed: expected {test_data!r}, got {read_back!r}"
+            )
+    else:
+        print("   ERROR: EEPROM config '24c256' not found")
+        failed = True
     
     adapter.close()
     print("\n=== Core functionality test completed ===")
+    return not failed
 
 
 def test_gui_imports():
-    """Test GUI imports without actually running the GUI."""
+    """Test GUI imports without actually running the GUI. Returns True only if all checks pass."""
     print("\n=== Testing GUI Imports ===")
     
     try:
@@ -87,12 +96,26 @@ def test_gui_imports():
         print("   MainWindow creation: PASSED")
         
         print("   GUI framework initialization: PASSED")
+        return True
         
     except Exception as e:
         print(f"   GUI test failed: {e}")
+        return False
 
 
 if __name__ == "__main__":
-    test_core_functionality()
-    test_gui_imports()
-    print("\n=== All tests completed ===")
+    exit_code = 0
+    for test in (test_core_functionality, test_gui_imports):
+        try:
+            passed = test()
+        except Exception as e:
+            print(f"\n{test.__name__} raised an exception: {e}")
+            passed = False
+        if not passed:
+            exit_code = 1
+
+    if exit_code == 0:
+        print("\n=== All tests completed ===")
+    else:
+        print("\n=== Tests FAILED ===")
+    sys.exit(exit_code)

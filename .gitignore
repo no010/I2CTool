@@ -1,6 +1,9 @@
 # I2CTool specific
 i2ctool_gui_screenshot.png
 
+# Local agent/harness reports
+.qoder/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

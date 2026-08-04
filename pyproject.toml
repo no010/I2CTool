@@ -1,9 +1,25 @@
 [project]
 name = "i2ctool"
 version = "0.1.0"
-description = "Add your description here"
+description = "I2C debugging tool with PySide6 GUI and hardware adapter support"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "pyside6>=6.9.2",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-qt",
+]
+
+[project.scripts]
+i2ctool-gui = "ui_pyside6.main:main"
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["adapters*", "i2ctool_core*", "ui_pyside6*"]

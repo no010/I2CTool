@@ -186,8 +186,7 @@ def demo_usage_examples():
     print("   └── python -m ui_pyside6.main        (Launch GUI)")
     
     print("\n   Installation:")
-    print("   ├── pip install -r requirements-dev.txt")
-    print("   └── pip install -e .                 (Development install)")
+    print("   └── uv sync                          (Single install path, see README)")
 
 
 def main():
