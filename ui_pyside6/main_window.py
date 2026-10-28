@@ -192,7 +192,10 @@ class MainWindow(QMainWindow):
         elif adapter_type == "ch341":
             from adapters.ch341_adapter import CH341Adapter
             self.adapter = CH341Adapter()
-            self.status_bar.showMessage("CH341 adapter created (not implemented)")
+            if CH341Adapter.is_available():
+                self.status_bar.showMessage("CH341 adapter created (vendor DLL found)")
+            else:
+                self.status_bar.showMessage("CH341 adapter created (vendor DLL not found, install CH341DLL.dll)")
         elif adapter_type == "ch347":
             from adapters.ch347_adapter import CH347Adapter
             self.adapter = CH347Adapter()

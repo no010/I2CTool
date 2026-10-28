@@ -23,7 +23,7 @@ def demo_core_architecture():
     print("   │   └── eeprom_operations.py (High-level EEPROM operations)")
     print("   ├── adapters/              (Hardware adapters)")
     print("   │   ├── simulation_adapter.py (Working simulation)")
-    print("   │   ├── ch341_adapter.py   (CH341 placeholder)")
+    print("   │   ├── ch341_adapter.py   (CH341 via WCH vendor DLL)")
     print("   │   └── ch347_adapter.py   (CH347 placeholder)")
     print("   ├── ui_pyside6/            (PySide6 GUI)")
     print("   │   ├── main.py           (Application entry point)")
@@ -86,10 +86,11 @@ def demo_adapter_system():
     sim_adapter.close()
     
     # Show other adapters
-    print("\n   Other adapters (placeholders ready for implementation):")
+    print("\n   Other adapters:")
     ch341 = CH341Adapter()
     ch347 = CH347Adapter()
-    print(f"   ├── CH341: {ch341.get_info()}")
+    ch341_state = "vendor DLL available" if CH341Adapter.is_available() else "vendor DLL not found"
+    print(f"   ├── CH341: {ch341.get_info()} ({ch341_state})")
     print(f"   └── CH347: {ch347.get_info()}")
 
 
@@ -207,7 +208,7 @@ def main():
         print("✓ Hardware adapter interface defined") 
         print("✓ EEPROM configuration system working")
         print("✓ Simulation adapter for testing")
-        print("✓ Placeholder adapters for CH341/CH347")
+        print("✓ CH341 adapter implemented (WCH vendor DLL), CH347 placeholder")
         print("✓ All tests passing")
         print("\nThe I2CTool framework is ready for hardware-specific implementations!")
         

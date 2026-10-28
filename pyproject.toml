@@ -12,10 +12,19 @@ dependencies = [
 dev = [
     "pytest",
     "pytest-qt",
+    "setuptools>=77",
 ]
 
 [project.scripts]
 i2ctool-gui = "ui_pyside6.main:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.uv]
+# Build the local package without an isolated build environment so that
+# `uv run` / `uv sync` do not need network access for build backends.
+no-build-isolation-package = ["i2ctool"]
 
 [build-system]
 requires = ["setuptools>=77"]

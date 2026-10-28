@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Minimal acceptance gate for the i2ctool repository.
 
-Runs syntax-level and functional smoke checks without extra tooling:
+Runs syntax-level, unit-test and functional smoke checks without extra tooling:
 1. `python -m compileall` over all Python source directories.
-2. `python test_gui.py`, the project's functional verification script.
+2. `python -m pytest`, the project's unit test suite.
+3. `python test_gui.py`, the project's functional verification script.
 
 Exits 0 only if every step passes; otherwise exits with a non-zero code.
 
@@ -20,6 +21,7 @@ SOURCE_DIRS = [
     PROJECT_ROOT / "i2ctool_core",
     PROJECT_ROOT / "adapters",
     PROJECT_ROOT / "ui_pyside6",
+    PROJECT_ROOT / "tests",
 ]
 
 TOP_LEVEL_SCRIPTS = [
@@ -49,6 +51,10 @@ def main() -> int:
         (
             "Syntax check (python -m compileall)",
             [sys.executable, "-m", "compileall", "-q", *compile_targets],
+        ),
+        (
+            "Unit tests (pytest)",
+            [sys.executable, "-m", "pytest", "-q"],
         ),
         (
             "Functional smoke test (test_gui.py)",

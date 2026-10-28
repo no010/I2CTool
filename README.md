@@ -63,13 +63,15 @@ EEPROM 芯片描述（示例 JSON）
 
 验收门禁（提交前检查）
 - 本地运行：python scripts/check.py
-  1. 语法级检查：python -m compileall 覆盖 i2ctool_core/、adapters/、ui_pyside6/ 及顶层脚本
-  2. 功能冒烟检查：运行 test_gui.py
+  1. 语法级检查：python -m compileall 覆盖 i2ctool_core/、adapters/、ui_pyside6/、tests/ 及顶层脚本
+  2. 单元测试：python -m pytest（tests/ 目录，基于 SimulationAdapter 验证核心层）
+  3. 功能冒烟检查：运行 test_gui.py
 - 全部通过时退出码为 0，任一步骤失败时退出码非零；提交改动前请先运行该检查。
 - CI：.github/workflows/check.yml 在 push/PR 时自动执行同一门禁（不引入额外工具链）。
 
 开发与打包
 - 在 Windows 上测试 CH341/CH347 驱动需先安装对应厂商驱动。  
+- CH341 适配器通过 WCH 厂商动态库（CH341DLL.dll）工作：将 DLL 放在工作目录/可执行文件旁，或设置环境变量 I2CTOOL_CH341_DLL 指向其路径；DLL 缺失时适配器会优雅降级（open 返回 False）。
 - 打包 PySide6：使用 PyInstaller 打包 Python 程序。  
 - Tauri 打包为规划方案（未实现），如后续实现则按 Tauri 官方文档执行。
 
